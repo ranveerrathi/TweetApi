@@ -1,0 +1,150 @@
+@font-face {
+    font-family: 'robotoregular';
+    src: url('../fonts/roboto-regular-webfont.woff2') format('woff2'),
+         url('../fonts/roboto-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	font-family: 'robotoregular';
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+b, strong {
+	font-weight: bold;
+}
+.tweet-content {
+    max-width: 1366px;
+    margin: 0 auto;
+}
+h2.tweet_title {
+    background: #00447c;
+    padding: 10px 15px;
+    color: #FFF;
+    font-weight: 600;
+    font-size: 19px;
+    margin: 0 -15px 20px;
+}
+.feed_heading {
+    font-size: 21px;
+    font-weight: 300;
+    line-height: 24px;
+    color: #292F33;
+    padding: 10px 0;
+}
+.timeline-Header-byline {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    color: #657786;
+}
+.tweet_column {
+    background: #eeeeee;
+}
+.tweet_content {
+    margin-top: 0;
+    margin-left: 0;
+    font-size: 13px;
+    line-height: 18px;
+    margin-bottom: 5px;
+}
+.tweet_img {
+    display: block;
+    width: 100%;
+}
+.tweet_link {
+    display: block;
+}
+.retweet_link {
+    display: block;
+}
+.created_date {
+    font-size: 13px;
+    line-height: 18px;
+    color: #8899a6;
+    margin-bottom: 5px;
+}
+.tweet_link {
+    font: normal normal 14px/1.4 Helvetica,Roboto,"Segoe UI",Calibri,sans-serif;
+    color: #292F33;
+    line-height: 18px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 4px;
+    text-decoration: none!important;
+}
+.tweet_link:hover {
+    color: #2b7bb9;
+}
+.retweet_link {
+    font: normal normal 14px/1.4 Helvetica,Roboto,"Segoe UI",Calibri,sans-serif;
+    color: #292F33;
+    line-height: 18px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 4px;
+    text-decoration: none!important;
+}
+.retweet_link:hover {
+    color: #2b7bb9;
+}
+.tweet_single {
+    background: #fff;
+    border-top: 1px solid rgba(15,70,100,.12);
+    padding: 10px;
+}
+.tweet_single:first-child {
+    border: 0 none;
+}
+.tweet_single:hover {
+    background-color: rgba(160,200,220,.12);
+}
+.tweet-overflow {
+    max-height: 800px;
+    overflow-y: auto;
+}
