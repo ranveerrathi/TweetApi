@@ -54,6 +54,14 @@ table {
 b, strong {
 	font-weight: bold;
 }
+.tweet_filter, .tweet_filter_bottom {
+    max-width: 1366px;
+    margin: 0 auto;
+}
+.tweet_filter_bottom .tweet_column {
+    background: #f8f8f8;
+    padding:10px;
+}
 .tweet-content {
     max-width: 1366px;
     margin: 0 auto;
@@ -73,6 +81,9 @@ h2.tweet_title {
     color: #292F33;
     padding: 10px 0;
 }
+.tweet_filter_bottom .feed_heading {
+    padding-left: 10px;
+}
 .timeline-Header-byline {
     font-size: 12px;
     font-weight: 400;
@@ -88,10 +99,6 @@ h2.tweet_title {
     font-size: 13px;
     line-height: 18px;
     margin-bottom: 5px;
-}
-.tweet_img {
-    display: block;
-    width: 100%;
 }
 .tweet_link {
     display: block;
@@ -148,3 +155,103 @@ h2.tweet_title {
     max-height: 800px;
     overflow-y: auto;
 }
+.tweet_img {
+    width: 100%;
+    display: block;
+}
+/*Tweet Form*/
+
+.filter_form fieldset {
+    border: 1px solid #eaeaea;
+    padding: 0 0 6px;
+    border-radius: 0;
+    margin-bottom: 20px;
+    border-top: 3px solid #00447c;
+    border-radius: 4px;
+    background: #f8f8f8;
+}
+.filter_form h3 {
+    margin: 0 0 15px 0;
+    background: #E2E5EF;
+    font-size: 21px;
+    font-weight: 300;
+    line-height: 24px;
+    color: #292F33;
+    padding: 6px 13px;
+}
+.filter_form .form-group {
+    margin-bottom: 8px;
+    min-height: 25px;
+}
+.filter_form .col-lg-6 .form-group label {
+    width: 145px;
+}
+.filter_form .form-group label {
+    width: 233px;
+    text-align: right;
+    float: left;
+    padding-right: 15px;
+    margin: 5px 0 2px 0;
+}
+.filter_form .tweet_filter_bottom .form-group label {
+    width: 115px;
+}
+.aestrick {
+    color: #f70f2b;
+}
+.filter_form input[type=url],
+.filter_form input[type=text],
+.filter_form select,
+.filter_form input[type=number],
+.filter_form input[type=email] {
+    border-radius: 0;
+    box-shadow: 0 0 0 transparent !important;
+    height: 24px !important;
+    padding: 3px 2px;
+    max-width: 170px;
+    font: 400 13.3333px Arial;
+    color: #000;
+    border: 1px solid #A8A8A8;
+    width: 49%;
+    box-shadow: 0 0 0 transparent;
+}
+.form-buttons {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    min-height: 26px;
+}
+.form-buttons button {
+    padding: 4px 3px;
+    border: 1px solid #b5b5b5;
+    border-bottom-color: #7f7f7f;
+    background: #e8e8e9 url(../images/btn_sprite.png) repeat-x right top;
+    font-weight: bold;
+    font-size: 13px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    margin: 0 5px;
+    font-family: Arial,Helvetica,sans-serif;
+    color: #333!important;
+    cursor: pointer;
+}
+.form-buttons button:hover {
+    background-position: right -30px;
+}
+.filter_form label {
+    margin-bottom: 2px;
+    margin-left: 0;
+    color: #4a4a56;
+    font-weight: bold;
+    font-size: 13px;
+    font-family: Arial,Helvetica,sans-serif;
+}
+.customisable-highlight {
+    color: #007bff!important;
+}
+.tweet_filter_bottom .tweet_column {
+    border: 0 none;
+}
+#sortable>div { float: left; }

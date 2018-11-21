@@ -1,8 +1,10 @@
 var express = require('express');
 var app = express();
 var twitApi = require('./tweet-api');
+var LocalStorage = require('node-localstorage').LocalStorage;
 var path = require('path');
 app.set('views', __dirname);
+app.use(require('connect').bodyParser());
 app.use(express.static(__dirname + '/public'));
 app.use(function (req, res, next){
     // Website you wish to allow to connect
@@ -17,14 +19,26 @@ app.use(function (req, res, next){
     // Pass to next layer of middleware
     next();
 });
-app.get('/fatch-tweet', function (req, res) {    
-    console.log(req.query.id);
+app.get('/fetch-tweet', function (req, res) {
     twitApi.get_user_timeline(req.query.count,req.query.screen_name,function(data){
             res.send(data);
     }); 
 })
+app.post('/save-setting', function (req, res) {
+    console.log(JSON.stringify(req.body));
+    localStorage.setItem('layoutSetting',JSON.stringify(req.body));
+    console.log(localStorage.getItem('layoutSetting'));
+   
+})
+app.get('/save-setting', function (req, res) {    
+    res.send(localStorage.getItem('layoutSetting'));
+   
+})
 app.get('/', function (req, res) {    
     res.sendFile(path.join(__dirname + '/index.html'));
+})
+app.get('/editlayout', function (req, res) {    
+    res.sendFile(path.join(__dirname + '/edit-layout.html'));
 })
 var server = app.listen(8080, function () {
    var host = server.address().address

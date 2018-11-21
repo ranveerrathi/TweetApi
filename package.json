@@ -1,6 +1,7 @@
 {
   "name": "makeschoool-challenge",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "http-server": "^0.9.0",
     "moment": "^2.22.2",

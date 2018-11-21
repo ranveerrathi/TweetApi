@@ -9,13 +9,11 @@
   <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
   <link rel="stylesheet" href="css/style.css" type="text/css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
-  <script>
-    
+  <script>    
     const userAction = async(count,screen_name) => {
-      const response = await fetch('http://localhost:8080/fatch-tweet?count='+count+'&screen_name='+screen_name);
+      const response = await fetch('http://localhost:8080/fetch-tweet?count='+count+'&screen_name='+screen_name);
       const myJson = await response.json(); //extract JSON from the http response
-      for(var i=0;i<myJson.length;i++){
-        
+      for(var i=0;i<myJson.length;i++){        
         var tweet_single = document.createElement("div");
         tweet_single.setAttribute('class','tweet_single' );
         var tweet_content = document.createElement("p");
@@ -60,12 +58,36 @@
         tweet_single.appendChild(retweet_link);
         document.getElementById(screen_name).appendChild(tweet_single);
       }
-      // do something with myJson
-    }
+    }    
+    const userAction1 = async() => {
+        const response = await fetch('http://localhost:8080/save-setting');
+        const myJson = await response.json(); 
+        //var obj = JSON.parse(myJson);
+      var html ='';
+       for(var key in myJson) {
+            if (myJson[key] instanceof Object) {                
+           html += '<div class="tweet_column tweet_column_one col-lg-4 col-md-4 col-sm-12 col-12">'+
+          '<h1 class="feed_heading">Tweets'+ 
+            '<span class="timeline-Header-byline">by '+
+              '<a class="customisable-highlight" href="https://twitter.com/'+key+'" title="&lrm;@'+key+' on Twitter">&lrm;@'+key+'</a>'+
+          '</span>'+
+          '</h1>'+
+          '<div class="tweet-overflow" id="'+key+'">'+         
+          '</div>'+
+        '</div>';            }
+        }
+        document.getElementById("sorting").innerHTML = html;
+        for(var key in myJson) {
+            if (myJson[key] instanceof Object) {
+                var count = 30;
+                if(myJson[key][0].tweetCount!='')
+                  count = myJson[key][0].tweetCount;
 
-    userAction(30,'makeschool');
-    userAction(30,'newsycombinator');
-    userAction(30,'ycombinator');
+            }
+            userAction(count,key);
+        }
+    }
+    userAction1(); 
     function formatDate(date) {
       return moment(date,'x').format('MM/DD/YYYY, h:mm:ss a')
     }
@@ -75,32 +97,7 @@
   <div class="container-fluid">
     <h2 class="tweet_title">Twitter Feed</h2>
     <div class="tweet-content">
-      <div class="row">
-        
-
-        <div class="tweet_column tweet_column_one col-lg-4 col-md-4 col-sm-4 col-4">
-          <h1 class="feed_heading">Tweets 
-            <span class="timeline-Header-byline">by 
-              <a class="customisable-highlight" href="https://twitter.com/makeschool" title="&lrm;@makeschool on Twitter">&lrm;@makeschool</a>
-          </span>
-          </h1>
-          <div class="tweet-overflow" id="makeschool">            
-          </div>
-        </div>
-        <div class="tweet_column tweet_column_two col-lg-4 col-md-4 col-sm-4 col-4">
-          <h1 class="feed_heading">Tweets <span class="timeline-Header-byline">by 
-<a class="customisable-highlight" href="https://twitter.com/makeschool" title="&lrm;@makeschool on Twitter">&lrm;@newsycombinator</a></span></h1>
-          <div class="tweet-overflow" id="newsycombinator">
-            
-          </div>
-        </div>
-        <div class="tweet_column tweet_column_three col-lg-4 col-md-4 col-sm-4 col-4">
-          <h1 class="feed_heading">Tweets <span class="timeline-Header-byline">by 
-<a class="customisable-highlight" href="https://twitter.com/makeschool" title="&lrm;@makeschool on Twitter">&lrm;@ycombinator</a></span></h1>
-          <div class="tweet-overflow" id="ycombinator">
-            
-          </div>
-        </div>
+      <div class="row" id="sorting">
       </div>
     </div>
   </div>

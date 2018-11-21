@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Tweets Index</title>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+
+$("#sorting").sortable({
+        revert: true
+});
+//$( "#sorting" ).disableSelection();
+} );
+</script>
+<script>
+async function saveLayoutSetting(){    
+  var jsonData = {};
+  jsonData['fontSizeText']= document.getElementById('fontSizeText').value;
+  jsonData['fontSizeLink']= document.getElementById('fontSizeLink').value;
+  jsonData['fontFamily']= document.getElementById('fontFamily').value;
+  var mainColumn = document.getElementsByClassName('tweet_column');
+  for (var i = 0; i<mainColumn.length; i++) {        
+    jsonData[mainColumn[i].id]=[];
+    var columnTweet = mainColumn[i].getElementsByTagName("INPUT");
+    var jsonDate1 = {};
+    for (var j =0;j<columnTweet.length; j++) {
+      if(j==0)
+          jsonDate1['tweetCount'] = columnTweet[j].value;
+      if(j==1)
+          jsonDate1['tweetStart'] = columnTweet[j].value;
+      if(j==2)
+          jsonDate1['tweetEnd'] = columnTweet[j].value;
+    }
+    jsonData[mainColumn[i].id].push(jsonDate1)        
+
+  }
+  const settings = {
+    method: 'POST',
+    headers:{
+        Accept: 'application/json',
+        'Content-Type': 'application/json'           
+    },
+    body:JSON.stringify(jsonData)
+  };
+  const response = await fetch('http://localhost:8080/save-setting',settings).then(response => response.json())
+    .then(json => {
+        return json;
+    })
+    .catch(e => {
+        return e
+    });
+}
+const userAction1 = async() => {
+    const response = await fetch('http://localhost:8080/save-setting');
+    const myJson = await response.json(); 
+    //var obj = JSON.parse(myJson);
+    var html ='';
+    for(var key in myJson) {
+        if (myJson[key] instanceof Object) {  
+      html += '<div class="tweet_column ui-state-default col-lg-4 col-md-4 col-sm-12 col-12" id="'+key+'">'+
+        '<h1 class="feed_heading">Tweets Filter <span class="timeline-Header-byline">'+
+          '<a class="customisable-highlight" href="https://twitter.com/'+key+'" title="&lrm;@'+key+'l on Twitter">&lrm;@'+key+'</a></span>'+
+            '</h1>'+
+            '<div class="tweet-overflow">'+
+              '<div class="form-group">'+
+                '<label>No. of Tweets<span class="aestrick">*</span></label>'+
+                '<input type="text" class="form-control tweetCount" name="tweetsCount" id="tweetsCount" placeholder="No. of Tweets" required="" value="">'+
+              '</div>'+
+              '<div class="form-group">'+
+                '<label>Start Date<span class="aestrick">*</span></label>'+
+                '<div>'+
+                  '<div class="react-datepicker-wrapper">'+
+                    '<div class="react-datepicker__input-container"><input type="text" class="datepicker tweetStart"></div>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+              '<div class="form-group">'+
+                '<label>End Date<span class="aestrick">*</span></label>'+
+                '<div>'+
+                  '<div class="react-datepicker-wrapper">'+
+                    '<div class="react-datepicker__input-container"><input type="text" class="datepicker tweetEnd"></div>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+            '</div>'+
+          '</div>';
+        }
+     }
+     document.getElementById("sorting").innerHTML = html;
+     for(var key in myJson) {
+        if (myJson[key] instanceof Object) {      
+           for(var key1 in myJson[key][0]){
+              var value = myJson[key][0];
+              console.log(key1);
+              console.log(document.getElementById(key));
+              document.getElementById(key).getElementsByClassName(key1)[0].value = value[key1];
+            }       
+
+        }else{
+          document.getElementById(key).value = myJson[key];
+        }
+     }
+     console.log(html);
+    $(".datepicker").datepicker();
+  
+    
+}
+userAction1();
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<h2 class="tweet_title">Twitter Feed</h2>
+  <form class="filter_form">
+    <div class="tweet_filter">
+      <fieldset class="row">
+        <h3>Filter</h3>
+        <div class="col-md-12">
+
+          <div class="row">
+            
+            <div class="col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label>Text Font Size<span class="aestrick">*</span></label>
+                <input type="text" class="form-control fontSizeText" name="fontSizeText" id="fontSizeText" placeholder="Text Font Size" required="" value="">
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label>Link Font Size<span class="aestrick">*</span></label>
+                <input type="text" class="form-control fontSizeLink" name="fontSizeLink" id="fontSizeLink" placeholder="Link Font Size" required="" value="">
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label>Font Family<span class="aestrick">*</span></label>
+                <div class="">
+                  <select class="type-select form-control" required="" id="fontFamily">
+                    <option value="">Select</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Helvetica">Helvetica</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+        </div>
+      </fieldset>    
+  </div>
+  <div class="tweet_filter_bottom">
+    <div class="row" id="sorting">     
+    </div>
+  </div>
+  <div class="form-buttons">
+    <button type="button" class="" onclick="saveLayoutSetting()">Save</button>
+  </div>
+</form>
+</div>
+</body>
+</html>
