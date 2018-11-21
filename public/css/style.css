@@ -222,7 +222,8 @@ h2.tweet_title {
     position: relative;
     min-height: 26px;
 }
-.form-buttons button {
+
+.form-buttons button, .form-buttons .btn {
     padding: 4px 3px;
     border: 1px solid #b5b5b5;
     border-bottom-color: #7f7f7f;
@@ -236,6 +237,9 @@ h2.tweet_title {
     font-family: Arial,Helvetica,sans-serif;
     color: #333!important;
     cursor: pointer;
+}
+.form-buttons .btn { 
+    padding: 2px 3px;
 }
 .form-buttons button:hover {
     background-position: right -30px;
@@ -254,4 +258,14 @@ h2.tweet_title {
 .tweet_filter_bottom .tweet_column {
     border: 0 none;
 }
-#sortable>div { float: left; }
+#sorting .tweet_column {
+      float: left;
+    }
+.tweet_filter_bottom {
+    max-width: 1426px;
+}
+#sorting {
+    padding: 0 15px;
+    clear: both;
+    overflow: hidden;
+}

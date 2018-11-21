@@ -12,15 +12,7 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-$( function() {
 
-$("#sorting").sortable({
-        revert: true
-});
-//$( "#sorting" ).disableSelection();
-} );
-</script>
 <script>
 async function saveLayoutSetting(){    
   var jsonData = {};
@@ -58,6 +50,7 @@ async function saveLayoutSetting(){
     .catch(e => {
         return e
     });
+
 }
 const userAction1 = async() => {
     const response = await fetch('http://localhost:8080/save-setting');
@@ -111,6 +104,12 @@ const userAction1 = async() => {
      }
      console.log(html);
     $(".datepicker").datepicker();
+    $( "#sorting" ).sortable({
+      revert: true,
+      cursor: "move",
+      dropOnEmpty: true
+    });
+    $( "#sorting" ).disableSelection();
   
     
 }
@@ -164,11 +163,11 @@ userAction1();
       </fieldset>    
   </div>
   <div class="tweet_filter_bottom">
-    <div class="row" id="sorting">     
+    <div class="ui-sortable" id="sorting">     
     </div>
   </div>
   <div class="form-buttons">
-    <button type="button" class="" onclick="saveLayoutSetting()">Save</button>
+    <button type="button" class="" onclick="saveLayoutSetting();window.location.href = '/';">Save</button>
   </div>
 </form>
 </div>

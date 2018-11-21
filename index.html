@@ -10,14 +10,16 @@
   <link rel="stylesheet" href="css/style.css" type="text/css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
   <script>    
-    const userAction = async(count,screen_name) => {
+    const userAction = async(count,screen_name,font_size,font_Size_Link,font_Family) => {
       const response = await fetch('http://localhost:8080/fetch-tweet?count='+count+'&screen_name='+screen_name);
       const myJson = await response.json(); //extract JSON from the http response
       for(var i=0;i<myJson.length;i++){        
         var tweet_single = document.createElement("div");
         tweet_single.setAttribute('class','tweet_single' );
+        tweet_single.setAttribute('style','font-family:'+font_Family );
         var tweet_content = document.createElement("p");
-        tweet_content.setAttribute('class','tweet_content' );
+        tweet_content.setAttribute('class','tweet_content');
+        tweet_content.setAttribute('style','font-size:'+font_size+'px');
         var t = document.createTextNode(myJson[i].full_text);
         tweet_content.appendChild(t);
 
@@ -28,13 +30,15 @@
         
         var tweet_link = document.createElement("a");
         tweet_link.setAttribute('class','tweet_link' );
+        tweet_link.setAttribute('style','font-size:'+font_Size_Link+'px' );
         tweet_link.setAttribute('target','_blank' );
         tweet_link.setAttribute('href','https://twitter.com/'+screen_name+'/status/'+myJson[i].id_str);
         var link = document.createTextNode('Tweet Here');
         tweet_link.appendChild(link);
 
         var retweet_link = document.createElement("a");
-        retweet_link.setAttribute('class','retweet_link' );
+        retweet_link.setAttribute('class','retweet_link');
+         retweet_link.setAttribute('style','font-size:'+font_Size_Link+'px');
         retweet_link.setAttribute('target','_blank' );
         retweet_link.setAttribute('href','https://twitter.com/intent/retweet?tweet_id='+myJson[i].id_str);
 
@@ -83,8 +87,15 @@
                 if(myJson[key][0].tweetCount!='')
                   count = myJson[key][0].tweetCount;
 
-            }
-            userAction(count,key);
+         }else{
+            if(key=='fontSizeText')
+              var font_size = myJson[key];
+            if(key=='fontSizeLink')
+              var font_Size_Link = myJson[key];
+            if(key=='fontFamily')
+              var font_Family = myJson[key];
+         }
+         userAction(count,key,font_size,font_Size_Link,font_Family);
         }
     }
     userAction1(); 
@@ -96,6 +107,9 @@
 <body>
   <div class="container-fluid">
     <h2 class="tweet_title">Twitter Feed</h2>
+    <div class="form-buttons">
+      <a class="btn" href="/editlayout" >Edit Layout</a>
+    </div>
     <div class="tweet-content">
       <div class="row" id="sorting">
       </div>
